@@ -1,12 +1,14 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { ListaComponent } from './components/lista/lista.component';
+import { VendaComponent } from './components/venda/venda.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  standalone: true,
+  imports: [ListaComponent, VendaComponent],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrls: ['./app.scss'],
 })
-export class App {
-  protected readonly title = signal('Plataforma-produto');
+export class AppComponent {
+  protected title = 'Plataforma de Produtos';
 }

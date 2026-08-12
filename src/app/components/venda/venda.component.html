@@ -1,0 +1,46 @@
+<h2>Venda de Produtos</h2>
+
+<div class="tipo-venda">
+  <label for="tipo-venda">Tipo de venda:</label>
+  <select id="tipo-venda" (change)="onTipoChange($event)">
+    <option value="B2C">B2C (Varejo)</option>
+    <option value="B2B">B2B (Atacado - 15% OFF)</option>
+  </select>
+</div>
+
+<div class="lista">
+  <h3>Selecione os produtos:</h3>
+
+  @for (produto of produtos(); track produto.id) {
+    <div class="item">
+      <input
+        type="checkbox"
+        [checked]="produto.selecionado"
+        (change)="onCheckboxChange(produto.id, $event)"
+      />
+      <span class="nome">{{ produto.nome }}</span>
+      <span class="preco">R$ {{ produto.preco }}</span>
+
+      <label [for]="'qtd-' + produto.id">Qtd:</label>
+      <input
+        [id]="'qtd-' + produto.id"
+        type="number"
+        min="1"
+        [value]="produto.quantidade"
+        (input)="onQuantidadeChange(produto.id, $event)"
+      />
+    </div>
+  }
+</div>
+
+<div class="resumo">
+  <h3>Resumo</h3>
+  <p>Subtotal: R$ {{ subtotal() }}</p>
+
+  @if (desconto() > 0) {
+    <p>Desconto B2B: R$ {{ desconto() }}</p>
+  }
+
+  <p class="total">Total: R$ {{ totalFinal() }}</p>
+  <button (click)="emitirVenda()">Finalizar Venda</button>
+</div>
